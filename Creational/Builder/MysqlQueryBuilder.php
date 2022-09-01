@@ -4,13 +4,16 @@
 namespace Patters\Creational\Builder;
 
 
+use Exception;
+use stdClass;
+
 class MysqlQueryBuilder implements SQLQueryBuilder
 {
-    protected $query;
+    protected stdClass $query;
 
     protected function reset(): void
     {
-        $this->query = new \stdClass();
+        $this->query = new stdClass();
     }
 
     /**
@@ -27,24 +30,30 @@ class MysqlQueryBuilder implements SQLQueryBuilder
 
     /**
      * Добавление условия WHERE.
+     * @throws Exception
      */
     public function where(string $field, string $value, string $operator = '='): SQLQueryBuilder
     {
         if (!in_array($this->query->type, ['select', 'update', 'delete'])) {
-            throw new \Exception("WHERE can only be added to SELECT, UPDATE OR DELETE");
+            throw new Exception("WHERE can only be added to SELECT, UPDATE OR DELETE");
         }
         $this->query->where[] = "$field $operator '$value'";
 
         return $this;
     }
 
+
     /**
      * Добавление ограничения LIMIT.
+     * @param int $start
+     * @param int $offset
+     * @return SQLQueryBuilder
+     * @throws Exception
      */
     public function limit(int $start, int $offset): SQLQueryBuilder
     {
         if (!in_array($this->query->type, ['select'])) {
-            throw new \Exception("LIMIT can only be added to SELECT");
+            throw new Exception("LIMIT can only be added to SELECT");
         }
         $this->query->limit = " LIMIT " . $start . ", " . $offset;
 
