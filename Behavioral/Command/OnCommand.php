@@ -4,22 +4,24 @@
 namespace Patters\Behavioral\Command;
 
 
+use Patters\Behavioral\Command\Driver;
+
 class OnCommand implements Command
 {
 
-    private Engine $engin;
+    private Engine $engine;
 
     /**
      * OnCommand constructor.
-     * @param Engine $engin
+     * @param Engine $engine
      */
-    public function __construct(Engine $engin)
+    public function __construct(Engine $engine)
     {
-        $this->engin = $engin;
+        $this->engine = $engine;
     }
 
     public function execute()
     {
-        $this->engin->on();
+        $this->engine->on();
     }
 }

@@ -9,7 +9,7 @@ abstract class AbstractHandler implements Handler
     /**
      * @var Handler
      */
-    private $nextHandler;
+    private Handler $nextHandler;
 
     public function setNext(Handler $handler): Handler
     {
