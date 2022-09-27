@@ -11,8 +11,8 @@ class Facade
 
     /**
      * Facade constructor.
-     * @param A $a
-     * @param B $b
+     * @param A|null $a
+     * @param B|null $b
      */
     public function __construct(A $a = null, B $b = null)
     {
